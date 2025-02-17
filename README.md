@@ -1,2 +1,2 @@
 # Web-Portfolio
-My personal portfolio website
+Personal portfolio website of Thapelo Lekhuane©.
