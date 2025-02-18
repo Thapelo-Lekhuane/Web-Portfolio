@@ -23,9 +23,115 @@
   
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thapelo's Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            flex-direction: column;
+        }
+        .chat-container {
+            width: 300px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .input-box {
+            display: flex;
+            margin-top: 10px;
+        }
+        input {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            margin-left: 5px;
+            padding: 5px 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .toggle-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
-
 <body>
-        
+    <button class="toggle-btn" onclick="toggleChat()">Chat</button>
+    <div class="chat-container" id="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    
+    <script>
+        function toggleChat() {
+            let chatContainer = document.getElementById("chat-container");
+            chatContainer.style.display = chatContainer.style.display === "none" ? "block" : "none";
+        }
+
+        function sendMessage() {
+            let input = document.getElementById("user-input");
+            let message = input.value.trim().toLowerCase();
+            if (message === "") return;
+
+            let chatBox = document.getElementById("chat-box");
+            let userMessage = `<div><strong>You:</strong> ${input.value}</div>`;
+            chatBox.innerHTML += userMessage;
+
+            setTimeout(() => {
+                let botResponse = getBotResponse(message);
+                let botMessage = `<div><strong>Bot:</strong> ${botResponse}</div>`;
+                chatBox.innerHTML += botMessage;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 500);
+
+            input.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function getBotResponse(input) {
+            if (input.includes("who are you")) {
+                return "I'm Thapelo Lekhuane's personal assistant, here to help you!";
+            } else if (input.includes("contact")) {
+                return "You can reach Thapelo at guycode.devops@gmail.com or call at 0636165831.";
+            } else if (input.includes("what do you do")) {
+                return "Thapelo is a DevOps Engineer, a Microsoft Azure Developer, and an AI-certified specialist. He is proficient in Python, HTML, CSS, and JavaScript.";
+            } else {
+                return "I'm here to assist you. Ask me anything about Thapelo's work!";
+            }
+        }
+    </script>
 </body>
 </html>
